@@ -1,0 +1,8 @@
+(executable
+ (public_name final_project)
+ (name main)
+ (preprocess (pps ppx_deriving.show))
+ (libraries final_project angstrom graphics))
+(env
+  (dev
+    (flags (:standard -warn-error -32))))

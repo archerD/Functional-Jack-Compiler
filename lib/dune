@@ -1,0 +1,9 @@
+(library
+ (name final_project)
+ (preprocess (pps ppx_deriving.show))
+ (libraries angstrom stdio)
+)
+(env
+  (dev
+    (flags (:standard -warn-error -8))))
+
