@@ -15,12 +15,6 @@
           # You can add "development" packages here. They will get added to the devShell automatically.
           ocaml-lsp-server = "*";
           ocamlformat = "*";
-          angstrom = "*";
-          ppx_deriving = "*";
-          ppxlib = "*";
-          base = "*";
-          core = "*";
-          stdio = "*";
         };
         query = devPackagesQuery // {
           ## You can force versions of certain packages here, e.g:
@@ -33,7 +27,6 @@
           angstrom = "0.15.0";
           ppx_deriving = "*";
           graphics = "*";
-          base = "*";
           core = "*";
         };
         scope = on.buildDuneProject { } package ./. query;
@@ -42,7 +35,9 @@
           ${package} = prev.${package}.overrideAttrs (oldAttrs: {
             # Prevent the ocaml dependencies from leaking into dependent environments
             doNixSupport = false;
-            buildInputs = oldAttrs.buildInputs ++ [pkgs.ocamlPackages.ppx_deriving pkgs.ocamlPackages.ppxlib];
+            # ensure dune can access the necessary build dependencies
+            buildInputs = oldAttrs.buildInputs ++
+                [final.ppx_deriving final.ppxlib final.angstrom final.core];
           });
         };
         scope' = scope.overrideScope' overlay;
@@ -60,7 +55,6 @@
           inputsFrom = [ main ];
           buildInputs = devPackages ++ [
             # You can add packages from nixpkgs here
-            pkgs.ocamlPackages.ppx_deriving
           ];
         };
       });

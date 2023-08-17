@@ -49,6 +49,3 @@ Contains tools from the nand2tetris [website](nand2tetris.org/software) to facil
 #### test_inputs/
 Contains different jack programs and reference compilations of the programs.
 
-## Note on flake.nix/flake.lock
-For nix users: the included flake.nix allows `nix develop` to be run and provide a suitable development environment, but `nix run` does not work...
-
